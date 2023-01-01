@@ -1,0 +1,123 @@
+#include<iostream>
+#include<string.h>
+
+using namespace std;
+int const size=3;
+struct student
+{
+    int rno;
+    char name[20];
+    float SGPA;
+
+};
+
+void accept(struct student list[size]);
+void display(struct student list[80]);
+void insertionSort(struct student list[size]);
+void binarySearch(struct student list[size]);
+int main()
+{
+     char ch;
+     int choice;
+     struct student data[20];
+     accept(data);
+     do{
+     cout<<"\n1.Insertion sort";
+     cout<<"\n2.Binary Search";
+     cout<<"\nEnter Your Choice:";
+     cin>>choice;
+
+     switch(choice)
+     {
+        case 1 :insertionSort(data);
+                display(data);
+               break;
+
+        case 2 :binarySearch(data);
+                display(data);
+               break;
+
+        default:
+               cout<<"\nInvalid choice";
+     }
+      cout<<"\nContinue (y/n):";
+      cin>>ch;
+     }while(ch=='y');
+       
+    return 0;
+    
+}
+
+void accept(struct student list[size])
+{
+    int i;
+    for(i=0;i<size;i++)
+    {
+        cout<<"\nEnter Roll.no,name,SGPA:";
+        cin>>list[i].rno>>list[i].name>>list[i].SGPA;
+
+    }
+}
+
+void display(struct student list[80])
+{
+    int i;
+    cout<<"\nRoll NO\tName\tSGPA\n";
+    for(i=0;i<size;i++)
+    {
+        cout<<"\n"<<list[i].rno<<"\t"<<list[i].name<<"\t"<<list[i].SGPA;
+        
+    }
+}
+
+void insertionSort(struct student list[size])//arrage list of student alphabetically
+{
+    int k,j;
+    struct student temp;
+
+    for(k=1;k<size;k++)  //complete students names in list
+    {
+        temp=list[k]; //stored first name
+        j=k-1;   //for backword comparision for k=1 i.e j=0
+         
+        while(strcmp(list[j].name,temp.name)>0 && j>=0) //compare first name in list with temp
+        {
+            list[j+1]=list[j]; //stored backword in list with all name alphabetically
+            --j;     
+        }
+        list[j+1]=temp; //all name stored in temp shift into list array
+    }
+}
+
+void binarySearch(struct student list[size])//search student according name
+{
+    int i,lower,upper,mid;
+    char search[80];
+
+    cout<<"\nName of student you want to search:";
+    cin>>search;
+
+    lower=0;
+    upper=size-1;
+    mid=(lower+upper)/2;
+
+    while(lower<=upper)
+    {
+        if(strcmp(list[mid].name,search)<0) //compaer list of mid name with seaqrching name
+        lower=mid+1;                //searching character is greater than mid character
+    else if (strcmp(list[mid].name,search)==0) //equal
+    {
+        cout<<"\n"<<list[mid].rno<<"\t"<<list[mid].name<<"\t"<<list[mid].SGPA;//print list
+        break;
+    }
+    else
+    
+        upper=mid-1; 
+        mid=(lower+upper)/2;
+
+    }
+    if(lower>upper)
+   
+        cout<<search<<"Not found in the list.";
+
+}

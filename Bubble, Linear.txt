@@ -1,0 +1,108 @@
+#include<iostream>//header file 
+#include<string.h>//string related function
+using namespace std;
+int const size=3;//Enter 3 Student data in fixed size
+struct student      //Struect is collection of different infoemation
+{
+    int rno;
+    char name[20];
+    float SGPA;
+};
+//declaration of function(structure and Pass array)
+void accept(struct student list[size] );//accept() function accept student datta
+void display(struct student list[80] );
+void bubbleSort(struct student list[size] );
+void linearSearch(struct student list[size] );
+//starting function
+ int main()
+{
+    char ch;
+    int choice;
+    struct student data[20]; //data array stored student data.
+    accept (data); //
+    do{
+    cout<<"\n1:Bubble Sort";
+    cout<<"\n2:Linear search";
+    cout<<"\nEnter your choice:";
+    cin>>choice;
+
+switch(choice)
+{
+    case 1:bubbleSort(data); //call bubble sort
+           display(data);
+           break;
+
+    case 2:linearSearch(data);//call linear serach
+          display(data);
+           break;
+  
+    default:
+           cout<<"\nInvalid Choice";
+}
+    cout<<"\nContinue (y/n)";
+    cin>>ch;
+    }while(ch=='y');
+}
+//for accept
+void accept(struct student list [size])
+{
+    int i;
+    for(i=0;i<size;i++)
+    {
+        cout<<"Enter Roll.no,Name,SGPA";
+        cin>>list[i].rno>>list[i].name>>list[i].SGPA;
+
+    }
+}
+
+//for display
+void display(struct student list[80])
+{
+    int i;
+    cout<<"\nRoll no\tName\tSGPA\n";
+    for(i=0;i<size;i++)
+    {
+        cout<<"\n"<<list[i].rno <<"\t "<<list[i].name<<"\t " <<list[i].SGPA;
+    }
+}
+
+void bubbleSort(struct student list[size])
+{
+    int i,j;
+    struct student temp;
+
+    for(i=0;i<size-1;i++)
+    {
+        for(j=0;j<size-1-i;j++)
+        {
+            if(list[j].rno>list[j+1].rno)
+            {
+                temp=list[j];
+                list[j]=list[j+1];
+                list[j+1]=temp;
+            }
+        }
+    }
+}
+
+void linearSearch(struct student list[size])
+{
+    float SGPA;
+    int i;
+
+    cout<<"\nEnter SGPA:";
+    cin>>SGPA;
+
+    cout<<"\nRoll NO\tName\tSGPA\n";
+    
+    for(i=0;i<size;i++)
+    {
+        if(SGPA==list[i].SGPA)
+       {
+        cout<<"\n"<<list[i].rno<<"\t "<<list[i].name<<"\t " <<list[i].SGPA;
+        break;
+       }
+      
+    }
+
+}
